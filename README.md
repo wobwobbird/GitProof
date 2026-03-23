@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Git Proof
 
-## Getting Started
+Small Next.js app for issuing and displaying **developer proofs**: a public page lists verified projects for a GitHub user, with checklist metadata stored in PostgreSQL (via Prisma and Neon).
 
-First, run the development server:
+## Requirements
+
+- [Bun](https://bun.sh)
+- A [Neon](https://neon.tech) project (or any PostgreSQL URL compatible with Prisma)
+
+## Setup
+
+1. Clone the repo and install dependencies:
+
+   ```bash
+   bun install
+   ```
+
+2. Copy the environment template and fill in values:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. In the Neon dashboard, create a database and copy the connection string into `DATABASE_URL`. Prefer the **pooled** connection string if Neon offers one.
+
+4. Set `GIT_PROOF_ISSUER_NAME` to the name shown as the issuer on proofs (for example your company or your own name).
+
+5. After the Prisma schema and migrations exist in this repo, apply the database schema and generate the client:
+
+   ```bash
+   bunx prisma migrate dev
+   bunx prisma generate
+   ```
+
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Other scripts:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+bun run build
+bun run start
+bun run lint
+```
 
-## Learn More
+## Security note (v1)
 
-To learn more about Next.js, take a look at the following resources:
+Admin routes under `/admin` are **not authenticated**. Anyone who can reach the URL can create or change data. Do not expose this app to the public internet without additional protection if that matters for your use case.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js](https://nextjs.org) (App Router), TypeScript, Tailwind CSS
+- Prisma + Neon PostgreSQL (once configured in the repo)
