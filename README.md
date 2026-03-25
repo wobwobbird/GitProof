@@ -21,15 +21,36 @@ Small Next.js app for issuing and displaying **developer proofs**: a public page
    cp .env.example .env
    ```
 
-3. In the Neon dashboard, create a database and copy the connection string into `DATABASE_URL`. Prefer the **pooled** connection string if Neon offers one.
+3. In the Neon dashboard, create a project/database and copy the Postgres connection string into `DATABASE_URL` in `.env`.
+   - Prefer the **pooled** connection string for app/runtime usage.
+   - If you use Neon roles/branches, ensure the URL points to the branch you intend to develop against.
 
 4. Set `GIT_PROOF_ISSUER_NAME` to the name shown as the issuer on proofs (for example your company or your own name).
 
-5. After the Prisma schema and migrations exist in this repo, apply the database schema and generate the client:
+5. Run the Prisma + Neon flow from the project root:
+
+   - Create/apply migration to Neon:
 
    ```bash
-   bunx prisma migrate dev
+   bunx prisma migrate dev --name init
+   ```
+
+   - Regenerate Prisma Client (safe to run anytime schema changes):
+
+   ```bash
    bunx prisma generate
+   ```
+
+   - Optional sanity check:
+
+   ```bash
+   bunx prisma studio
+   ```
+
+6. Start the app:
+
+   ```bash
+   bun run dev
    ```
 
 ## Development
