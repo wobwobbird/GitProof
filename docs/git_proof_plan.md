@@ -28,6 +28,19 @@ isProject: false
 
 # Git Proof — Revised implementation plan (aligned to repo)
 
+**First time implementing this?** Use the step-by-step guide with checkpoints, troubleshooting, and concepts: **[git_proof_next_plan_walkthrough.md](git_proof_next_plan_walkthrough.md)**. This file stays a compact reference (diagram, todos, DoD).
+
+---
+
+## Quick link: detailed walkthrough
+
+| Document | Use when |
+|----------|----------|
+| [git_proof_next_plan_walkthrough.md](git_proof_next_plan_walkthrough.md) | You want stage-by-stage instructions, verification, and common pitfalls. |
+| This file | You want the short plan, mermaid diagram, and todo mapping. |
+
+---
+
 ## Current state (verified)
 
 [package.json](package.json) already defines **Next 16.2.1**, React 19, **Tailwind 4** (`@tailwindcss/postcss`), and scripts `next dev` / `next build` / `next start`. [bun.lock](bun.lock) is present. The tree is minimal: [app/layout.tsx](app/layout.tsx), [app/page.tsx](app/page.tsx), [app/globals.css](app/globals.css)—**no** `src/index.ts`, **no** `src/components/ui/` shadcn tree to port.
