@@ -9,11 +9,37 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql",
-  irl=env("DATABASE_URL"),
-  id=,
-  githubUsername=,
-  issuerName=
-  createdAt=
+  provider = "postgresql"
+}
 
+model DeveloperProof {
+  id              Int   @id @default(autoincrement())
+  githubUsername  String
+  issuerName      String
+  createdAt       DateTime  @default(now())
+  projects   Project[]
+}
+
+enum ProjectStatus {
+  verified
+  revoked
+}
+
+model Project {
+  status            ProjectStatus @default(revoked)
+  id                Int   @id @default(autoincrement())
+  developerProofId  Int
+  developerProof    DeveloperProof @relation(fields: [developerProofId], references: [id])
+  name              String
+  description       String
+  repoUrl           String
+  issuedAt          DateTime    @default(now())
+  liveUrl           String?
+  liveDemoChecked           Boolean @default(false)
+  repositoryPublic          Boolean @default(false)
+  documentationComplete   Boolean @default(false)
+  testsVerified             Boolean @default(false)
+  licenseClear              Boolean @default(false)
+
+  @@index([developerProofId])
 }
