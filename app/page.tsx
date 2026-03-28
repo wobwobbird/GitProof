@@ -1,12 +1,15 @@
 import Link from "next/link";
+import PanelNav from "@/app/components/panel-nav";
 
 export default function Home() {
   return (
     <div className="relative min-h-dvh">
       <main className="layout-shell relative z-20 py-10 md:py-14">
-        <div className="frosted-panel">
+        <div className="panel-column">
+          <PanelNav active="home" />
+          <div className="frosted-panel">
           <p className="text-sm font-medium uppercase tracking-wide text-emerald-300">
-            Welcome
+            Welcomec To
           </p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             Git Proof
@@ -35,7 +38,7 @@ export default function Home() {
           <div className="mt-10">
             <Link
               href="/admin/create"
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-emerald-500/50 backdrop-blur-xs px-6 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              className="inline-flex h-11 items-center justify-center rounded-lg bg-emerald-500/50 backdrop-blur-xs px-6 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-400/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             >
               Create a proof
             </Link>
@@ -69,6 +72,7 @@ export default function Home() {
               without adding protection.
             </p>
           </section>
+          </div>
         </div>
       </main>
     </div>

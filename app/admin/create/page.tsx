@@ -1,4 +1,4 @@
-import Link from "next/link";
+import PanelNav from "@/app/components/panel-nav";
 import { createDeveloperProof } from "./actions";
 
 type Props = {
@@ -14,7 +14,9 @@ export default async function AdminCreatePage({ searchParams }: Props) {
   return (
     <div className="min-h-dvh">
       <main className="layout-shell py-10 md:py-14">
-        <div className="frosted-panel">
+        <div className="panel-column">
+          <PanelNav active="create" />
+          <div className="frosted-panel">
           <p className="text-sm font-medium uppercase tracking-wide text-emerald-300">
             Admin
           </p>
@@ -70,15 +72,7 @@ export default async function AdminCreatePage({ searchParams }: Props) {
               Create proof
             </button>
           </form>
-
-          <p className="mt-8 text-center text-sm text-neutral-400">
-            <Link
-              href="/"
-              className="text-emerald-300 underline decoration-emerald-400/40 underline-offset-2 hover:decoration-emerald-300"
-            >
-              ← Back to home
-            </Link>
-          </p>
+          </div>
         </div>
       </main>
     </div>

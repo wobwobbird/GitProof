@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import PanelNav from "@/app/components/panel-nav";
 import { prisma } from "@/lib/db";
 
 function formatDate(d: Date): string {
@@ -44,7 +45,9 @@ export default async function PublicProofPage(
   return (
     <div className="min-h-dvh">
       <main className="layout-shell py-10 md:py-14">
-        <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-8 backdrop-blur-xs sm:px-8 sm:py-10">
+        <div className="panel-column">
+          <PanelNav active="public" proofId={proof.id} />
+          <div className="frosted-panel">
           <header className="border-b border-white/10 pb-8">
             <p className="text-sm font-medium uppercase tracking-wide text-emerald-300">
               Developer proof
@@ -206,6 +209,7 @@ export default async function PublicProofPage(
               Proof ID {proof.id} · Created {formatDate(proof.createdAt)}
             </p>
           </footer>
+          </div>
         </div>
       </main>
     </div>

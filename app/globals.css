@@ -28,8 +28,18 @@ body {
     @apply mx-auto w-full max-w-[1200px] px-4 md:px-6;
   }
 
-  /* Home + admin: same max width (42rem) and frosted treatment */
+  /* Narrow column (42rem): nav strip + frosted panel stack share this width */
+  .panel-column {
+    @apply mx-auto flex w-full max-w-2xl flex-col gap-5;
+  }
+
+  /* Frosted card only — use inside .panel-column */
   .frosted-panel {
-    @apply mx-auto w-full max-w-2xl rounded-2xl bg-white/5 px-6 py-10 backdrop-blur-xs md:px-8 md:py-12;
+    @apply rounded-2xl border border-white/10 bg-white/5 px-6 py-10 backdrop-blur-xs md:px-8 md:py-12;
+  }
+
+  /* Top nav strip above the frosted panel (separate container, small gap via .panel-column) */
+  .panel-nav-shell {
+    @apply rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 backdrop-blur-xs sm:px-4;
   }
 }
