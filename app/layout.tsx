@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const siteUrl = "https:/gitproof-extreem.io";
+const siteUrl = "https://gitproof-extreem.io";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,12 +15,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Git Proof",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Git Proof",
+    template: "%s · Git Proof",
+  },
   description:
-    "Issue and share developer proofs with verified project listings.",
+    "Issue and share developer proofs with verified project listings and public /proof pages.",
   openGraph: {
     title: "Git Proof",
-    description: "Issue and share developer proofs with verified project listings.",
+    description:
+      "Issue and share developer proofs with verified project listings and public /proof pages.",
     url: siteUrl,
     siteName: "GitProof",
     locale: "en_GB",
