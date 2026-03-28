@@ -30,13 +30,13 @@ export default async function Page(props: PageProps<"/admin/proof/[id]">) {
           <PanelNav active="manage" proofId={proof.id} />
           <div className="frosted-panel">
           <header className="border-b border-white/10 pb-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-emerald-300">
-              Manage proof
+            <p className="text-sm font-medium uppercase tracking-wide text-emerald-300">
+              Create proof
             </p>
-            <h1 className="mt-1 text-xl font-semibold tracking-tight text-white sm:text-2xl">
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
               @{proof.githubUsername}
             </h1>
-            <p className="mt-1 text-sm text-neutral-300">
+            <p className="mt-3 text-sm leading-relaxed text-neutral-300">
               Proof ID{" "}
               <span className="font-mono text-white">{proof.id}</span>
               {" · "}

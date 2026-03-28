@@ -9,7 +9,7 @@ export default function Home() {
           <PanelNav active="home" />
           <div className="frosted-panel">
           <p className="text-sm font-medium uppercase tracking-wide text-emerald-300">
-            Welcomec To
+            Welcome to
           </p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             Git Proof
@@ -25,8 +25,8 @@ export default function Home() {
               set the issuer name (from your environment).
             </li>
             <li>
-              <span className="font-medium text-white">Add projects</span> on the
-              manage screen—repository URL, optional live link, status, and checklist
+              <span className="font-medium text-white">              Add projects</span> on the
+              create proof screen—repository URL, optional live link, status, and checklist
               items.
             </li>
             <li>

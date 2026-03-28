@@ -7,8 +7,13 @@ export default function NotFound() {
       <div className="panel-column">
         <PanelNav />
         <div className="frosted-panel">
-          <h1 className="text-xl font-semibold text-white">Not found</h1>
-          <p className="mt-2 text-sm text-neutral-300">
+          <p className="text-sm font-medium uppercase tracking-wide text-emerald-300">
+            404
+          </p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            Not found
+          </h1>
+          <p className="mt-4 text-base leading-relaxed text-neutral-300">
             That proof does not exist or the link is invalid.
           </p>
           <p className="mt-6 text-sm text-neutral-400">

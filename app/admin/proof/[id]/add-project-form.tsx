@@ -15,12 +15,12 @@ import {
 const DEFAULT_GITHUB_REPO_PREFIX = "https://github.com/";
 
 const inputClass =
-  "rounded-md border border-white/20 bg-white/10 px-2.5 py-1.5 text-sm text-white placeholder:text-neutral-500 focus:border-emerald-400/50 focus:outline-none focus:ring-1 focus:ring-emerald-400/50";
+  "rounded-md border border-white/20 bg-white/0 px-2.5 py-1.5 text-sm text-white placeholder:text-white/50 focus:border-emerald-400/50 focus:outline-none focus:ring-1 focus:ring-emerald-400/50";
 
-const labelClass = "text-xs font-medium text-neutral-300";
+const labelClass = "text-sm font-medium text-neutral-200";
 
 function OptionalMark() {
-  return <span className="text-neutral-500"> (optional)</span>;
+  return <span className="text-white/50"> (optional)</span>;
 }
 
 /** Disables submit until the URL is more than the default github.com prefix (owner/repo). */
@@ -83,7 +83,7 @@ const CHECKLIST_TOGGLES: readonly {
 ];
 
 const toggleBtnClass =
-  "inline-flex cursor-pointer select-none items-center rounded-full border border-white/20 bg-white/5 px-2.5 py-1 text-xs font-medium text-neutral-300 transition has-[:checked]:border-emerald-400/50 has-[:checked]:bg-emerald-500/25 has-[:checked]:text-emerald-100 has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-emerald-400 has-[input:focus-visible]:ring-offset-2 has-[input:focus-visible]:ring-offset-transparent";
+  "inline-flex cursor-pointer select-none items-center rounded-full border border-white/20 bg-white/5 px-2.5 py-1.5 text-sm font-medium text-neutral-300 transition has-[:checked]:border-emerald-400/50 has-[:checked]:bg-emerald-500/25 has-[:checked]:text-emerald-100 has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-emerald-400 has-[input:focus-visible]:ring-offset-2 has-[input:focus-visible]:ring-offset-transparent";
 
 const fieldGap = "flex flex-col gap-1";
 
@@ -98,7 +98,9 @@ export default function AddProjectForm({ proofId, action }: AddProjectFormProps)
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <h2 className="text-base font-semibold text-white">Add project</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-white">
+          Add project
+        </h2>
       </div>
 
       <form
@@ -138,7 +140,7 @@ export default function AddProjectForm({ proofId, action }: AddProjectFormProps)
               placeholder="https://github.com/owner/repo"
             />
             {repoUrlBlocksSubmit ? (
-              <p className="text-[11px] leading-snug text-neutral-500">
+              <p className="text-[11px] leading-snug text-white/50">
                 Add owner/repo after github.com/…
               </p>
             ) : null}
@@ -159,30 +161,30 @@ export default function AddProjectForm({ proofId, action }: AddProjectFormProps)
           />
         </div>
 
-        <div className={fieldGap}>
-          <label htmlFor="liveUrl" className={labelClass}>
-            Live URL
-            <OptionalMark />
-          </label>
-          <input
-            id="liveUrl"
-            name="liveUrl"
-            type="text"
-            inputMode="url"
-            autoComplete="off"
-            className={inputClass}
-            placeholder="https://…"
-          />
-        </div>
+        <div className="grid grid-cols-1 gap-3 pt-0.5 sm:grid-cols-2 sm:gap-4">
+          <div className={`${fieldGap} min-w-0`}>
+            <label htmlFor="liveUrl" className={labelClass}>
+              Live URL
+              <OptionalMark />
+            </label>
+            <input
+              id="liveUrl"
+              name="liveUrl"
+              type="text"
+              inputMode="url"
+              autoComplete="off"
+              className={inputClass}
+              placeholder="https://…"
+            />
+          </div>
 
-        <div className="grid grid-cols-1 gap-3 pt-0.5 md:grid-cols-2 md:gap-4">
           <fieldset className="min-w-0 border-0 p-0">
             <legend className={`${labelClass} mb-1 block w-full`}>
               Status
               <OptionalMark />
             </legend>
-            <div className="flex flex-wrap gap-1.5">
-              <label className={toggleBtnClass} title="Mark project as verified">
+            <div className="flex flex-row gap-1.5">
+              <label className={`${toggleBtnClass} w-fit`} title="Mark project as verified">
                 <input
                   type="radio"
                   name="status"
@@ -194,7 +196,7 @@ export default function AddProjectForm({ proofId, action }: AddProjectFormProps)
                   Verified
                 </span>
               </label>
-              <label className={toggleBtnClass} title="Mark project as revoked">
+              <label className={`${toggleBtnClass} w-fit`} title="Mark project as revoked">
                 <input
                   type="radio"
                   name="status"
@@ -209,30 +211,30 @@ export default function AddProjectForm({ proofId, action }: AddProjectFormProps)
               </label>
             </div>
           </fieldset>
-
-          <fieldset className="min-w-0 border-0 p-0">
-            <legend className={`${labelClass} mb-1 block w-full`}>
-              Checklist
-              <OptionalMark />
-            </legend>
-            <div className="flex flex-wrap gap-1.5">
-              {CHECKLIST_TOGGLES.map(({ name, label, title, Icon }) => (
-                <label key={name} className={toggleBtnClass} title={title}>
-                  <input type="checkbox" name={name} className="sr-only" />
-                  <span className="inline-flex items-center gap-1">
-                    <Icon />
-                    {label}
-                  </span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
         </div>
+
+        <fieldset className="min-w-0 w-full border-0 p-0">
+          <legend className={`${labelClass} mb-1 block w-full`}>
+            Checklist
+            <span className="text-white/50"> - Select the relivent options (optional)</span>
+          </legend>
+          <div className="flex flex-wrap gap-1.5">
+            {CHECKLIST_TOGGLES.map(({ name, label, title, Icon }) => (
+              <label key={name} className={toggleBtnClass} title={title}>
+                <input type="checkbox" name={name} className="sr-only" />
+                <span className="inline-flex items-center gap-1">
+                  <Icon />
+                  {label}
+                </span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
 
         <button
           type="submit"
           disabled={repoUrlBlocksSubmit}
-          className="mt-0.5 w-fit rounded-lg bg-emerald-500/50 px-3 py-2 text-sm font-semibold text-white shadow-sm backdrop-blur-xs transition-colors hover:bg-emerald-400/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent disabled:cursor-not-allowed disabled:opacity-50"
+          className="mt-0.5 inline-flex h-11 w-fit items-center justify-center rounded-lg bg-emerald-500/50 px-6 text-sm font-semibold text-white shadow-sm backdrop-blur-xs transition-colors hover:bg-emerald-400/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent disabled:cursor-not-allowed disabled:opacity-50"
         >
           Add project
         </button>

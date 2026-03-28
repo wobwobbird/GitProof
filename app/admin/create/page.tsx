@@ -52,7 +52,7 @@ export default async function AdminCreatePage({ searchParams }: Props) {
             <div className="flex flex-col gap-1.5">
               <label
                 htmlFor="githubUsername"
-                className="text-sm font-medium text-neutral-200"
+                className="text-sm font-medium text-white/50"
               >
                 GitHub username
               </label>
@@ -62,12 +62,12 @@ export default async function AdminCreatePage({ searchParams }: Props) {
                 type="text"
                 autoComplete="username"
                 className={inputClass}
-                placeholder="octocat"
+                placeholder="LordMarshy"
               />
             </div>
             <button
               type="submit"
-              className="w-fit rounded-lg bg-emerald-500/50 px-4 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur-xs transition-colors hover:bg-emerald-400/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              className="inline-flex h-11 w-fit items-center justify-center rounded-lg bg-emerald-500/50 px-6 text-sm font-semibold text-white shadow-sm backdrop-blur-xs transition-colors hover:bg-emerald-400/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             >
               Create proof
             </button>
