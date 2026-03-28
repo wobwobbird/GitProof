@@ -58,5 +58,5 @@ export default async function formInputActions(formData: FormData) {
   });
 
   revalidatePath(`/admin/proof/${developerProofId}`);
-  redirect(`/admin/proof/${developerProofId}`);
+  redirect(`/proof/${developerProofId}`);
 }
