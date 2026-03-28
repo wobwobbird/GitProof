@@ -4,6 +4,15 @@ import { useMemo, useState } from "react";
 
 const DEFAULT_GITHUB_REPO_PREFIX = "https://github.com/";
 
+const inputClass =
+  "rounded-md border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder:text-neutral-400 focus:border-emerald-400/50 focus:outline-none focus:ring-1 focus:ring-emerald-400/50";
+
+const labelClass = "text-sm font-medium text-neutral-200";
+
+function OptionalMark() {
+  return <span className="text-neutral-500"> (optional)</span>;
+}
+
 /** Disables submit until the URL is more than the default github.com prefix (owner/repo). */
 function isGithubRepoIncomplete(url: string): boolean {
   const trimmed = url.trim();
@@ -23,6 +32,37 @@ type AddProjectFormProps = {
   action: (formData: FormData) => void | Promise<void>;
 };
 
+const CHECKLIST_TOGGLES = [
+  {
+    name: "liveDemoChecked",
+    label: "Live demo",
+    title: "Live demo checked",
+  },
+  {
+    name: "repositoryPublic",
+    label: "Repo public",
+    title: "Repository publicly accessible",
+  },
+  {
+    name: "documentationComplete",
+    label: "Docs",
+    title: "Documentation complete",
+  },
+  {
+    name: "testsVerified",
+    label: "Tests",
+    title: "Tests verified",
+  },
+  {
+    name: "licenseClear",
+    label: "License",
+    title: "License clear",
+  },
+] as const;
+
+const toggleBtnClass =
+  "inline-flex cursor-pointer select-none rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs font-medium text-neutral-300 transition has-[:checked]:border-emerald-400/50 has-[:checked]:bg-emerald-500/25 has-[:checked]:text-emerald-100 has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-emerald-400 has-[input:focus-visible]:ring-offset-2 has-[input:focus-visible]:ring-offset-transparent";
+
 export default function AddProjectForm({ proofId, action }: AddProjectFormProps) {
   const [repoUrl, setRepoUrl] = useState(DEFAULT_GITHUB_REPO_PREFIX);
 
@@ -32,50 +72,52 @@ export default function AddProjectForm({ proofId, action }: AddProjectFormProps)
   );
 
   return (
-    <section className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
-      <h2 className="text-lg font-semibold text-neutral-900">Add project</h2>
-      <p className="mt-1 text-sm text-neutral-600">
-        Required fields are marked. Checklist items are optional attestations.
-      </p>
+    <div className="space-y-4">
+      <div>
+        <h2 className="text-lg font-semibold text-white">Add project</h2>
+        <p className="mt-0.5 text-xs text-neutral-400">
+          <span className="text-red-300">*</span> required · checklist toggles are optional
+        </p>
+      </div>
 
       <form
         action={action}
         suppressHydrationWarning
-        className="mt-6 flex flex-col gap-5"
+        className="flex flex-col gap-4"
       >
         <input type="hidden" name="developerProofId" value={String(proofId)} />
 
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="name" className="text-sm font-medium text-neutral-800">
-            Name <span className="text-red-600">*</span>
+          <label htmlFor="name" className={labelClass}>
+            Name <span className="text-red-300">*</span>
           </label>
           <input
             id="name"
             name="name"
             type="text"
             required
-            className="rounded-md border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
+            className={inputClass}
             placeholder="Project name"
           />
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="description" className="text-sm font-medium text-neutral-800">
-            Description <span className="text-red-600">*</span>
+          <label htmlFor="description" className={labelClass}>
+            Description <span className="text-red-300">*</span>
           </label>
           <textarea
             id="description"
             name="description"
             required
-            rows={4}
-            className="resize-y rounded-md border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
+            rows={3}
+            className={`${inputClass} resize-y`}
             placeholder="What this project is"
           />
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="repoUrl" className="text-sm font-medium text-neutral-800">
-            Repository URL <span className="text-red-600">*</span>
+          <label htmlFor="repoUrl" className={labelClass}>
+            Repository URL <span className="text-red-300">*</span>
           </label>
           <input
             id="repoUrl"
@@ -85,19 +127,20 @@ export default function AddProjectForm({ proofId, action }: AddProjectFormProps)
             autoComplete="url"
             value={repoUrl}
             onChange={(e) => setRepoUrl(e.target.value)}
-            className="rounded-md border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
+            className={inputClass}
             placeholder="owner/repo"
           />
           {repoUrlBlocksSubmit ? (
-            <p className="text-xs text-neutral-500">
+            <p className="text-xs text-neutral-400">
               Add owner/repo after the GitHub prefix to enable Add project.
             </p>
           ) : null}
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="liveUrl" className="text-sm font-medium text-neutral-800">
-            Live URL <span className="text-neutral-400">(optional)</span>
+          <label htmlFor="liveUrl" className={labelClass}>
+            Live URL
+            <OptionalMark />
           </label>
           <input
             id="liveUrl"
@@ -105,95 +148,66 @@ export default function AddProjectForm({ proofId, action }: AddProjectFormProps)
             type="text"
             inputMode="url"
             autoComplete="off"
-            className="rounded-md border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
+            className={inputClass}
             placeholder="https://…"
           />
         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="status" className="text-sm font-medium text-neutral-800">
+        <fieldset className="min-w-0 border-0 p-0">
+          <legend className={`${labelClass} mb-2 block w-full`}>
             Status
-          </label>
-          <select
-            id="status"
-            name="status"
-            defaultValue="revoked"
-            className="rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500"
-          >
-            <option value="verified">Verified</option>
-            <option value="revoked">Revoked</option>
-          </select>
-        </div>
+            <OptionalMark />
+          </legend>
+          <div className="flex flex-wrap gap-2">
+            <label className={toggleBtnClass} title="Mark project as verified">
+              <input
+                type="radio"
+                name="status"
+                value="verified"
+                className="sr-only"
+              />
+              <span>Verified</span>
+            </label>
+            <label className={toggleBtnClass} title="Mark project as revoked">
+              <input
+                type="radio"
+                name="status"
+                value="revoked"
+                className="sr-only"
+                defaultChecked
+              />
+              <span>Revoked</span>
+            </label>
+          </div>
+        </fieldset>
 
-        <fieldset className="rounded-md border border-neutral-200 p-4">
-          <legend className="px-1 text-sm font-medium text-neutral-800">Checklist</legend>
-          <ul className="mt-3 flex flex-col gap-3">
-            <li className="flex items-center gap-2">
-              <input
-                id="liveDemoChecked"
-                name="liveDemoChecked"
-                type="checkbox"
-                className="size-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-500"
-              />
-              <label htmlFor="liveDemoChecked" className="text-sm text-neutral-800">
-                Live demo checked
+        <fieldset className="min-w-0 border-0 p-0">
+          <legend className={`${labelClass} mb-2 block w-full`}>
+            Checklist
+            <OptionalMark />
+          </legend>
+          <div className="flex flex-wrap gap-2">
+            {CHECKLIST_TOGGLES.map((item) => (
+              <label key={item.name} className={toggleBtnClass} title={item.title}>
+                <input
+                  type="checkbox"
+                  name={item.name}
+                  className="sr-only"
+                />
+                <span>{item.label}</span>
               </label>
-            </li>
-            <li className="flex items-center gap-2">
-              <input
-                id="repositoryPublic"
-                name="repositoryPublic"
-                type="checkbox"
-                className="size-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-500"
-              />
-              <label htmlFor="repositoryPublic" className="text-sm text-neutral-800">
-                Repository public
-              </label>
-            </li>
-            <li className="flex items-center gap-2">
-              <input
-                id="documentationComplete"
-                name="documentationComplete"
-                type="checkbox"
-                className="size-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-500"
-              />
-              <label htmlFor="documentationComplete" className="text-sm text-neutral-800">
-                Documentation complete
-              </label>
-            </li>
-            <li className="flex items-center gap-2">
-              <input
-                id="testsVerified"
-                name="testsVerified"
-                type="checkbox"
-                className="size-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-500"
-              />
-              <label htmlFor="testsVerified" className="text-sm text-neutral-800">
-                Tests verified
-              </label>
-            </li>
-            <li className="flex items-center gap-2">
-              <input
-                id="licenseClear"
-                name="licenseClear"
-                type="checkbox"
-                className="size-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-500"
-              />
-              <label htmlFor="licenseClear" className="text-sm text-neutral-800">
-                License clear
-              </label>
-            </li>
-          </ul>
+            ))}
+          </div>
         </fieldset>
 
         <button
           type="submit"
           disabled={repoUrlBlocksSubmit}
-          className="mt-1 w-fit rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="mt-1 w-fit rounded-lg bg-emerald-500/50 px-4 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur-xs transition-colors hover:bg-emerald-400/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent disabled:cursor-not-allowed disabled:opacity-50"
         >
           Add project
         </button>
       </form>
-    </section>
+    </div>
   );
 }

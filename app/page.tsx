@@ -1,25 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="relative min-h-dvh text-neutral-900">
-      {/* Layer 1: gradient background */}
-      <div className="pointer-events-none absolute inset-0 z-0 bg-linear-to-br from-[rgb(8,71,47)] via-[rgb(4,53,34)] to-[rgb(2,25,15)]" aria-hidden />
-
-      {/* Layer 2: image on top of gradient */}
-      <div className="pointer-events-none absolute inset-0 z-10" aria-hidden>
-        <Image
-          src="/images/3D Abstract Liquid Shapes.png"
-          alt=""
-          fill
-          className="object-cover opacity-30"
-          priority
-        />
-      </div>
-
-      <main className="relative z-20 mx-auto max-w-2xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
-        <div className="rounded-2xl bg-white/5 px-8 py-10 backdrop-blur-xs">
+    <div className="relative min-h-dvh">
+      <main className="layout-shell relative z-20 py-10 md:py-14">
+        <div className="frosted-panel">
           <p className="text-sm font-medium uppercase tracking-wide text-emerald-300">
             Welcome
           </p>

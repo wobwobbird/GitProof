@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Image from "next/image";
 import "./globals.css";
 
 const siteUrl = "https://gitproof-extreem.io";
@@ -53,10 +54,26 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body
-        className="min-h-full flex flex-col"
+        className="relative min-h-full flex flex-col"
         suppressHydrationWarning
       >
-        {children}
+        {/* Layer 1: gradient background */}
+        <div className="pointer-events-none fixed inset-0 z-0 bg-linear-to-br from-[rgb(8,71,47)] via-[rgb(4,53,34)] to-[rgb(2,25,15)]" aria-hidden />
+
+        {/* Layer 2: image on top of gradient */}
+        <div className="pointer-events-none fixed inset-0 z-10" aria-hidden>
+          <Image
+            src="/images/3D Abstract Liquid Shapes.png"
+            alt=""
+            fill
+            className="object-cover opacity-30"
+            priority
+          />
+        </div>
+
+        <div className="relative z-20 flex min-h-full flex-col">
+          {children}
+        </div>
       </body>
     </html>
   );

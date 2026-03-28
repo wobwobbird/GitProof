@@ -21,3 +21,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Responsive content column: mobile 16px inset, tablet+ 24px inset, desktop max 1200px centred. */
+@layer components {
+  .layout-shell {
+    @apply mx-auto w-full max-w-[1200px] px-4 md:px-6;
+  }
+
+  /* Home + admin: same max width (42rem) and frosted treatment */
+  .frosted-panel {
+    @apply mx-auto w-full max-w-2xl rounded-2xl bg-white/5 px-6 py-10 backdrop-blur-xs md:px-8 md:py-12;
+  }
+}
