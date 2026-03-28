@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { prisma } from '@/lib/db';
-import Link from "next/link";
-
+import AddProjectForm from './add-project-form';
+import formInputActions from "./actions";
 
 
 export default async function Page ( props: PageProps<"/admin/proof/[id]"> ) {
@@ -9,7 +9,6 @@ export default async function Page ( props: PageProps<"/admin/proof/[id]"> ) {
   const parsedId = Number(id);
   
   if (!Number.isInteger(parsedId) || parsedId < 1) {
-    // some error message
     notFound();
   }
 
@@ -25,12 +24,6 @@ export default async function Page ( props: PageProps<"/admin/proof/[id]"> ) {
   }
 
   return (
-    <main className=" size-dvw items-center justify-center bg-pink-400">
-      /* render proof + projects */
-    </main>
+    <AddProjectForm proofId={proof.id} action={formInputActions} />
   )
-
-
-  
-  
 }
