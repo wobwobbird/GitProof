@@ -25,7 +25,7 @@ Admin flows live under `/admin`; public views use `/proof/[id]`.
 
 ![Public proof page](public/images/readme-proof-page.png)
 
-### Neon database (`/proof/[id]`)
+### Neon database
 
 ![Neon database](public/images/neon.png)
 
