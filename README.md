@@ -25,6 +25,10 @@ Admin flows live under `/admin`; public views use `/proof/[id]`.
 
 ![Public proof page](public/images/readme-proof-page.png)
 
+### Neon database (`/proof/[id]`)
+
+![Neon database](public/images/neon.png)
+
 ## Stack
 
 Git Proof is a **TypeScript** monolith-style app: the UI and API routes run in one **Next.js** process, data lives in **PostgreSQL** (this project is wired for **[Neon](https://neon.tech)**, a **serverless Postgres** platform), and tooling favours **Bun** end to end.
