@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "demo:dev": "cd demo && bun run dev",
+    "build:demo": "cd demo && bun install && bun run build"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.6.0",

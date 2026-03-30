@@ -99,6 +99,18 @@ Git Proof is a **TypeScript** monolith-style app: the UI and API routes run in o
 | `bun run build` | Production build |
 | `bun run start` | Start production server |
 | `bun run lint` | ESLint |
+| `bun run demo:dev` | Vite dev server for the browser-only demo in [`demo/`](demo/) |
+| `bun run build:demo` | Build the demo into [`docs/`](docs/) for **GitHub Pages** |
+
+## Static demo (GitHub Pages)
+
+A **browser-only** copy of the UI lives in [`demo/`](demo/) (Vite + React + Tailwind). It uses **`localStorage`** instead of Postgres—useful for a public static preview.
+
+- **Develop:** `bun run demo:dev` (opens the Vite app; routes use the hash, e.g. `#/admin/create`).
+- **Publish:** run `bun run build:demo`, commit the generated files under **`docs/`**, then in the repo **Settings → Pages** set source to the **`/docs`** folder on your default branch.
+- **Base path:** the demo build defaults to **`/gitproof/`** so assets work at `https://<user>.github.io/gitproof/`. For a different repo name, set `VITE_BASE` when building, e.g. `VITE_BASE=/my-repo/ bun run build:demo` from the `demo/` directory (see [`demo/vite.config.ts`](demo/vite.config.ts)).
+
+Internal planning notes previously under `docs/` were moved to [`planning/`](planning/) so `docs/` can be overwritten by the demo build.
 
 ## Data model (summary)
 

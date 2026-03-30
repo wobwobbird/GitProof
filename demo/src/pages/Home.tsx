@@ -1,0 +1,76 @@
+import { Link } from "react-router-dom";
+import PanelNav from "@/components/PanelNav";
+import { DemoShell } from "@/components/DemoShell";
+import { SEED_PROOF_LORD_ID } from "@/lib/seedData";
+
+export default function Home() {
+  return (
+    <DemoShell>
+      <main className="layout-shell relative z-20 py-10 md:py-14">
+        <div className="panel-column">
+          <PanelNav active="home" />
+          <div className="frosted-panel">
+            <p className="text-sm font-medium uppercase tracking-wide text-emerald-300">
+              Welcome to
+            </p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              Git Proof
+            </h1>
+            <p className="mt-4 text-base leading-relaxed text-neutral-300">
+              Issue a simple proof for a GitHub username, attach verified projects with links and
+              checklist details, then share a read-only page with anyone.
+            </p>
+
+            <ol className="mt-8 list-decimal space-y-3 pl-5 text-sm leading-relaxed text-neutral-300">
+              <li>
+                <span className="font-medium text-white">Create</span> a proof (issuer is fixed in
+                this demo).
+              </li>
+              <li>
+                <span className="font-medium text-white">Add projects</span> on the create proof
+                screen—repository URL, optional live link, status, and checklist items.
+              </li>
+              <li>
+                <span className="font-medium text-white">Share</span> the public link (hash URL) so
+                others can view the proof in their browser—still demo data only.
+              </li>
+            </ol>
+
+            <div className="mt-10">
+              <Link
+                to="/admin/create"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-emerald-500/50 backdrop-blur-xs px-6 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-400/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              >
+                Create a proof
+              </Link>
+            </div>
+
+            <section
+              className="mt-12 rounded-xl border border-white/10 bg-white/10 p-6 shadow-sm backdrop-blur-xs"
+              aria-labelledby="public-urls-heading"
+            >
+              <h2 id="public-urls-heading" className="text-sm font-semibold text-white">
+                Public URLs
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-neutral-300">
+                Each proof has a shareable hash route at{" "}
+                <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-xs text-emerald-300">
+                  #/proof/[id]
+                </code>
+                —for example{" "}
+                <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-xs text-emerald-300">
+                  #/proof/{SEED_PROOF_LORD_ID}
+                </code>
+                .
+              </p>
+              <p className="mt-4 text-xs text-neutral-400">
+                This static demo has no server auth; the real app should protect admin routes in
+                production.
+              </p>
+            </section>
+          </div>
+        </div>
+      </main>
+    </DemoShell>
+  );
+}
